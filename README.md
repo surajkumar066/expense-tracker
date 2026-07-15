@@ -49,4 +49,4 @@ npm run dev
 ```
 
 ## Live Link
-[deploy karne ke baad yahan link daalna]
+new-expense-trackers.netlify.app
