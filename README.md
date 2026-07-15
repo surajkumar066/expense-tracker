@@ -1,16 +1,52 @@
-# React + Vite
+# Personal Expense Tracker (Custom Hooks + LocalStorage)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React expense tracker built around custom hooks to separate business logic from UI.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Add expenses with title, amount, category, and date
+- View total spending and this month's spending
+- Filter by category, search by title
+- Sort by date or amount (ascending/descending)
+- Delete expenses
+- Data persists across page reloads via localStorage
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React (Vite)
+- Custom Hooks
+- Plain CSS
 
-## Expanding the Oxlint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```
+src/
+  hooks/
+    useLocalStorage.js   -> Generic hook to sync any state with localStorage
+    useForm.js             -> Generic form state + handleChange hook
+    useExpenses.js           -> CRUD logic for expenses (uses useLocalStorage internally)
+  components/
+    ExpenseForm.jsx           -> Form to add a new expense (uses useForm)
+    ExpenseList.jsx             -> Renders list of ExpenseItem
+    ExpenseItem.jsx               -> Single expense row
+    Filters.jsx                     -> Search, category filter, sort dropdown
+    Summary.jsx                       -> Total + monthly spending
+  App.jsx
+  App.css
+```
+
+## Custom Hooks Explained
+
+- **useLocalStorage(key, initialValue)** — a generic hook that behaves like `useState`, but automatically reads from and writes to `localStorage`. Reusable for any piece of state that needs to persist.
+- **useForm(initialValues)** — manages form field state and a single `handleChange` function shared across all inputs (using the `name` attribute to know which field to update).
+- **useExpenses()** — encapsulates all expense CRUD operations (add/update/remove) and uses `useLocalStorage` under the hood, so components never touch localStorage directly.
+
+## How to Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Live Link
+[deploy karne ke baad yahan link daalna]
